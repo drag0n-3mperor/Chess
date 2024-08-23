@@ -1,3 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+import Pawn from '../pieces/Pawn';
+import King from '../pieces/King';
+import Rook from '../pieces/Rook';
 
 function createBoard() {
     let board = [];
@@ -9,14 +13,14 @@ function createBoard() {
         for (let x=0; x<8; x++) {
             let piece = null;
             if (color !== null) {
-                if (y == 1 || y == 6) piece = 'P';
-                else if (x == 0 || x == 7) piece = 'R';
+                if (y == 1 || y == 6) piece = new Pawn(color,y,x);
+                else if (x == 0 || x == 7) piece = new Rook(color,y,x);
                 else if (x == 1 || x == 6) piece = 'N';
                 else if (x == 2 || x == 5) piece = 'B';
                 else if (x == 3) piece = 'Q';
-                else piece = 'K';
+                else piece = new King(color,y,x);
             }
-            temp.push({color: color, piece: piece});
+            temp.push(piece);
         }
         board.push(temp);
     }
