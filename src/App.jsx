@@ -9,7 +9,9 @@ function App() {
   const [board, setBoard] = useState(createBoard())
   const [highlight, setHighlight] = useState([]);
   const [selectedPiece, setSelectedPiece] = useState(null);
+  const [turn, setTurn] = useState('W');
   console.log(board);
+  
   const getColor = (row, col) => {
     if (row % 2 === 0) {
       if (col % 2 === 0) return 'white';
@@ -17,10 +19,6 @@ function App() {
     }
     if (col % 2 === 0) return 'black';
     return 'white';
-  }
-
-  const resetHighlight = () => {
-
   }
 
   const btnClick = (e) => {
@@ -37,7 +35,8 @@ function App() {
       temp[arr[0]][arr[1]] = temp[parseInt(prevId[0])][parseInt(prevId[1])];
       temp[arr[0]][arr[1]].row = arr[0];
       temp[arr[0]][arr[1]].col = arr[1];
-      temp[arr[0]][arr[1]].firstMove = false;
+      temp[arr[0]][arr[1]].moves++;
+      setTurn((turn == 'W') ? 'B' : 'W');
       temp[parseInt(prevId[0])][parseInt(prevId[1])] = null;
       setBoard(temp);
       setSelectedPiece(null);
@@ -47,7 +46,7 @@ function App() {
 
     setHighlight([]);
     setSelectedPiece(elem);
-    if (board[row][col]) {
+    if (board[row][col] && board[row][col].color === turn) {
       setHighlight(board[row][col].onClick(board));
       console.log(highlight)
     }
@@ -61,7 +60,7 @@ function App() {
       <>
         <div id={String(row) + String(col)}
           className='flex flex-nowrap flex-col align-center justify-center cursor-pointer'
-          style={{ height: boxSize, width: boxSize, color: fontColor, fontSize: fontSize, fontWeight: 'bold', backgroundColor: bgColor }}
+          style={{ height: boxSize, width: boxSize, color: fontColor, fontSize: fontSize, fontWeight: 'bold', backgroundColor: bgColor, margin: '2px' }}
           onClick={btnClick}
         >
           {piece ? (piece.color + piece.symbol) : ''}
@@ -78,22 +77,29 @@ function App() {
         temp.push(<Square row={row} col={col} board={board} />);
       }
       matrix.push(
-        <div className='flex flex-row m-1 p-0 gap-0'>{temp}</div>
+        <div className='flex flex-row p-0 gap-0'>{temp}</div>
       );
     }
     return matrix;
   }
 
   useEffect(() => {
-    highlight.forEach((e) => {
-      const sq = document.getElementById(String(e[0]) + String(e[1]));
-      sq.style.backgroundColor = 'green';
-    })
+    console.log(highlight)
+    if (highlight.length > 0) {
+      highlight.forEach((e) => {
+        const sq = document.getElementById(String(e[0]) + String(e[1]));
+        sq.style.backgroundColor = 'green';
+      })
+    }
   }, [highlight]);
 
   useEffect(() => {
     <PaintSquare />
   }, [board]);
+
+  useEffect(() => {
+    console.log(turn);
+  });
 
   return (
     <>
