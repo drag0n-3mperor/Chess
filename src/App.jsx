@@ -10,7 +10,6 @@ function App() {
   const [highlight, setHighlight] = useState([]);
   const [selectedPiece, setSelectedPiece] = useState(null);
   const [turn, setTurn] = useState('W');
-  console.log(board);
   
   const getColor = (row, col) => {
     if (row % 2 === 0) {
@@ -47,8 +46,8 @@ function App() {
     setHighlight([]);
     setSelectedPiece(elem);
     if (board[row][col] && board[row][col].color === turn) {
-      setHighlight(board[row][col].onClick(board));
-      console.log(highlight)
+      setHighlight(board[row][col].onClick(board, setBoard));
+      console.log('highlight', highlight)
     }
   }
 
