@@ -1,5 +1,6 @@
 
-import getValidMoves from "../hooks/getValidMoves";
+import checkMoveValidity from '../hooks/checkMoveValidity';
+
 class Knight {
     color;
     moves;
@@ -12,19 +13,6 @@ class Knight {
         this.symbol = 'N';
     }
 
-    checkValidity(board, r, c) {
-        let temp = [];
-        for (let i = 0; i < 8; i++) {
-            let _temp = [];
-            for (let j = 0; j < 8; j++) _temp.push(board[i][j]);
-            temp.push(_temp);
-        }
-        temp[r][c] = temp[this.row][this.col];
-        temp[this.row][this.col] = null;
-        console.log(r, c, 'getValidMoves()');
-        return getValidMoves(temp, this.color);
-    }
-
     onClick(board) {
         let ret = [];
         const diff = [-2, -1, 1, 2];
@@ -34,10 +22,10 @@ class Knight {
                     if (this.col + j < 8 && this.col + j >= 0 && Math.abs(i) != Math.abs(j)) {
                         if (board[this.row + i][this.col + j]) {
                             if (board[this.row + i][this.col + j].color !== this.color
-                                && this.checkValidity(board, this.row+i, this.col+j) === true) {
+                                && checkMoveValidity(board, this.row, this.col, this.row+i, this.col+j, this.color) === true) {
                                 ret.push([this.row + i, this.col + j]);
                             }
-                        } else if (this.checkValidity(board, this.row+i, this.col+j) === true) {
+                        } else if (checkMoveValidity(board, this.row, this.col, this.row+i, this.col+j, this.color) === true) {
                             ret.push([this.row + i, this.col + j]);
                         }
                     }

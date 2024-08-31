@@ -1,5 +1,6 @@
 
-import getValidMoves from "../hooks/getValidMoves";
+import checkMoveValidity from "../hooks/checkMoveValidity";
+
 class Queen {
     color;
     moves;
@@ -12,19 +13,6 @@ class Queen {
         this.symbol = 'Q';
     }
 
-    checkValidity(board, r, c) {
-        let temp = [];
-        for (let i = 0; i < 8; i++) {
-            let _temp = [];
-            for (let j = 0; j < 8; j++) _temp.push(board[i][j]);
-            temp.push(_temp);
-        }
-        temp[r][c] = temp[this.row][this.col];
-        temp[this.row][this.col] = null;
-        console.log(r, c, 'getValidMoves()');
-        return getValidMoves(temp, this.color);
-    }
-
     onClick(board) {
         let ret = [];
         for (let idiff = -1; idiff <= 1; idiff += 2) {
@@ -33,11 +21,11 @@ class Queen {
                 while (r >= 0 && r < 8 && c >= 0 && c < 8) {
                     if (board[r][c]) {
                         if (board[r][c].color !== this.color
-                            && this.checkValidity(board, r, c) === true) 
+                            && checkMoveValidity(board, this.row, this.col, r, c, this.color) === true) 
                             ret.push([r, c]);
                         break;
                     }
-                    if (this.checkValidity(board, r, c) === true)
+                    if (checkMoveValidity(board, this.row, this.col, r, c, this.color) === true)
                         ret.push([r, c]);
                     r += idiff, c += jdiff;
                 }
@@ -47,38 +35,42 @@ class Queen {
         for (let i=this.row+1; i<8; i++) {
             if (board[i][this.col]) {
                 if (board[i][this.col].color !== this.color
-                    && this.checkValidity(board, i, this.col) === true) 
+                    && checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true) 
                     ret.push([i,this.col]);
                 break;
             }
-            if (this.checkValidity(board, i, this.col) === true) ret.push([i,this.col]);
+            if (checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true) 
+                ret.push([i,this.col]);
         }
         for (let i=this.row-1; i>=0; i--) {
             if (board[i][this.col]) {
                 if (board[i][this.col].color !== this.color
-                    && this.checkValidity(board, i, this.col) === true) 
+                    && checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true) 
                     ret.push([i,this.col]);
                 break;
             }
-            if (this.checkValidity(board, i, this.col) === true) ret.push([i,this.col]);
+            if (checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true) 
+                ret.push([i,this.col]);
         }
         for (let i=this.col+1; i<8; i++) {
             if (board[this.row][i]) {
                 if (board[this.row][i].color !== this.color
-                    && this.checkValidity(board, i, this.col) === true) 
+                && checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true) 
                     ret.push([this.row, i]);
                 break;
             }
-            if (this.checkValidity(board, this.row, i) === true) ret.push([this.row, i]);
+            if (checkMoveValidity(board, this.row, this.col, this.row, i, this.color) === true) 
+                ret.push([this.row, i]);
         }
         for (let i=this.col-1; i>=0; i--) {
             if (board[this.row][i]) {
                 if (board[this.row][i].color !== this.color
-                    && this.checkValidity(board, i, this.col) === true) 
+                && checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true) 
                     ret.push([this.row, i]);
                 break;
             }
-            if (this.checkValidity(board, this.row, i) === true) ret.push([this.row, i]);
+            if (checkMoveValidity(board, this.row, this.col, this.row, i, this.color) === true) 
+                ret.push([this.row, i]);
         }
         return ret;
     }

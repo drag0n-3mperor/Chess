@@ -1,5 +1,6 @@
 
-import getValidMoves from "../hooks/getValidMoves";
+import checkMoveValidity from "../hooks/checkMoveValidity";
+
 class Pawn {
     color;
     moves;
@@ -12,19 +13,6 @@ class Pawn {
         this.symbol = 'P';
     }
 
-    checkValidity(board, r, c) {
-        let temp = [];
-        for (let i = 0; i < 8; i++) {
-            let _temp = [];
-            for (let j = 0; j < 8; j++) _temp.push(board[i][j]);
-            temp.push(_temp);
-        }
-        temp[r][c] = temp[this.row][this.col];
-        temp[this.row][this.col] = null;
-        console.log(r, c, 'getValidMoves()');
-        return getValidMoves(temp, this.color);
-    }
-
     onClick(board) {
         const diff = (this.color === 'B') ? 1 : -1;
         let ret = [];
@@ -32,12 +20,12 @@ class Pawn {
             if (
                 this.col - 1 >= 0 && board[this.row + diff][this.col - 1]
                 && board[this.row + diff][this.col - 1].color != this.color
-                && this.checkValidity(board, this.row + diff, this.col - 1) === true
+                && checkMoveValidity(board, this.row, this.col, this.row + diff, this.col - 1, this.color) === true
             ) ret.push([this.row + diff, this.col - 1]);
             if (
                 this.col + 1 < 8 && board[this.row + diff][this.col + 1]
                 && board[this.row + diff][this.col + 1].color != this.color
-                && this.checkValidity(board, this.row + diff, this.col + 1) === true
+                && checkMoveValidity(board, this.row, this.col, this.row + diff, this.col + 1, this.color) === true
             ) ret.push([this.row + diff, this.col + 1]);
         }
         if (this.moves === 0) {
@@ -45,7 +33,7 @@ class Pawn {
                 i += diff;
                 if (board[i][this.col] != null) break;
                 if (i >= 8 || i < 0) continue;
-                if (this.checkValidity(board, i, this.col) === true)
+                if (checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true)
                     ret.push([i, this.col]);
             }
             return ret;
@@ -54,7 +42,7 @@ class Pawn {
             i += diff;
             if (board[i][this.col] != null) break;
             if (i >= 8 || i < 0) continue;
-            if (this.checkValidity(board, i, this.col) === true)
+            if (checkMoveValidity(board, this.row, this.col, i, this.col, this.color) === true)
                 ret.push([i, this.col]);
         }
         return ret;
@@ -92,4 +80,4 @@ class Pawn {
     }
 }
 
-export default Pawn
+export default Pawn;
