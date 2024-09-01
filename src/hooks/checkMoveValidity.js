@@ -10,7 +10,6 @@ function checkMoveValidity(board, row, col, r, c, color) {
     }
     temp[r][c] = temp[row][col];
     temp[row][col] = null;
-    console.log(r, c, 'getValidMoves()');
     return getValidMoves(temp, color);
 }
 

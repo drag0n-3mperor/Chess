@@ -4,6 +4,7 @@ import childContext from './context/childContext.js';
 import Board from './components/Board';
 import './App.css';
 import setHighlightColor from './hooks/setHighlightColor.js';
+import checkForMate from './hooks/checkForMate.js';
 
 function App() {
   const {
@@ -13,8 +14,8 @@ function App() {
   } = useContext(childContext);
 
   useEffect(() => {
-    console.log(highlight);
-    setHighlightColor(highlight);
+    setHighlightColor(board, highlight);
+    checkForMate(board, turn);
   }, [highlight]);
 
   return (

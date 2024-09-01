@@ -5,7 +5,7 @@ import createBoard from '../hooks/createBoard'
 
 const Context = (props) => {
     const boxSize = '80px';
-    const fontSize = '24px';
+    const fontSize = '40px';
     const [board, setBoard] = useState(createBoard())
     const [highlight, setHighlight] = useState([]);
     const [selectedPiece, setSelectedPiece] = useState(null);

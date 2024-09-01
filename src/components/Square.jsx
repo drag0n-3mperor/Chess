@@ -12,7 +12,7 @@ function Square({ row, col }) {
     } = useContext(childContext);
     const piece = board[row][col];
     const bgColor = getBgColor(row, col);
-    const fontColor = (bgColor == 'black') ? 'white' : 'black';
+    const fontColor = board[row][col] ? (board[row][col].color === 'W') ? 'white' : 'black' : '';
     return (
         <>
             <div id={String(row) + String(col)}
@@ -22,7 +22,7 @@ function Square({ row, col }) {
                 onClick={(e) => onBtnClick(e, selectedPiece, setSelectedPiece, highlight,
                 setHighlight, board, turn, setTurn, setBoard)}
             >
-                {piece ? (piece.color + piece.symbol) : ''}
+                {piece ? piece.symbol : ''}
             </div>
         </>
     )
