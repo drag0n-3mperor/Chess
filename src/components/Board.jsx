@@ -14,10 +14,10 @@ function Board() {
   for (let row = 0; row < 8; row++) {
     let temp = [];
     for (let col = 0; col < 8; col++) {
-      temp.push(<Square row={row} col={col} />);
+      temp.push(<Square key={String(row) + String(col)} row={row} col={col} />);
     }
     matrix.push(
-      <div className='flex flex-row p-0 gap-0'>{temp}</div>
+      <div key={row} className='flex flex-row p-0 gap-0'>{temp}</div>
     );
   }
   return matrix;

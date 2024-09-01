@@ -15,10 +15,10 @@ function onBtnClick(
     )) {
         const prevId = selectedPiece.id;
         let temp = [...board];
-        temp[arr[0]][arr[1]] = temp[parseInt(prevId[0])][parseInt(prevId[1])];
-        temp[arr[0]][arr[1]].row = arr[0];
-        temp[arr[0]][arr[1]].col = arr[1];
-        temp[arr[0]][arr[1]].moves++;
+        temp[row][col] = temp[parseInt(prevId[0])][parseInt(prevId[1])];
+        temp[row][col].row = row;
+        temp[row][col].col = col;
+        temp[row][col].moves++;
         temp[parseInt(prevId[0])][parseInt(prevId[1])] = null;
         setTurn((turn === 'W') ? 'B' : 'W');
         setBoard(temp);
