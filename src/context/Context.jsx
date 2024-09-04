@@ -4,15 +4,23 @@ import { useState } from "react";
 import createBoard from '../hooks/createBoard'
 
 const Context = (props) => {
-    const boxSize = '80px';
-    const fontSize = '40px';
     const [board, setBoard] = useState(createBoard())
     const [highlight, setHighlight] = useState([]);
     const [selectedPiece, setSelectedPiece] = useState(null);
     const [turn, setTurn] = useState('W');
+    const [screenSize, setscreenSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+    const [boxSize, setBoxSize] = useState(
+        Math.floor(Math.min(screenSize.width, screenSize.height) / 8)
+    );
+    const [fontSize, setFontSize] = useState(Math.floor(boxSize / 2));
     const childContent = {
         boxSize: boxSize,
+        setBoxSize: setBoxSize,
         fontSize: fontSize,
+        setFontSize: setFontSize,
         board: board,
         setBoard: setBoard,
         highlight: highlight,
@@ -20,7 +28,9 @@ const Context = (props) => {
         selectedPiece: selectedPiece,
         setSelectedPiece: setSelectedPiece,
         turn: turn,
-        setTurn: setTurn
+        setTurn: setTurn,
+        screenSize: screenSize,
+        setscreenSize: setscreenSize
     };
 
     return (

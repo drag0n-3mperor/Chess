@@ -19,7 +19,7 @@ function Square({ row, col }) {
             <button id={id}
                 className='cursor-pointer rounded-none'
                 style={{ height: boxSize, width: boxSize, color: fontColor, fontSize: fontSize,
-                fontWeight: 'bold', backgroundColor: bgColor, margin: '2px', padding: '0px' }}
+                fontWeight: 'bold', backgroundColor: bgColor }}
                 onClick={(e) => onBtnClick(e, selectedPiece, setSelectedPiece, highlight,
                 setHighlight, board, turn, setTurn, setBoard)}
             >

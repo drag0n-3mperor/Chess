@@ -9,9 +9,11 @@ import checkForCheckMate from './hooks/checkForCheckMate.js';
 
 function App() {
   const {
-    boxSize, fontSize, board, setBoard,
-    highlight, setHighlight, selectedPiece,
-    setSelectedPiece, turn, setTurn
+    boxSize, setBoxSize, fontSize, setFontSize,
+    board, setBoard, highlight,
+    setHighlight, selectedPiece,
+    setSelectedPiece, turn, setTurn,
+    screenSize, setscreenSize
   } = useContext(childContext);
 
   useEffect(() => {
@@ -20,10 +22,33 @@ function App() {
     checkForCheckMate(board, turn);
   }, [highlight]);
 
+  useEffect(() => {
+    const handleScreenResize = () => {
+      setscreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    }
+    console.log(window.innerHeight.toString(), window.innerHeight.toString());
+    window.addEventListener('resize', handleScreenResize);
+  }, []);
+
+  useEffect(() => {
+    setBoxSize(Math.floor(Math.min(screenSize.width, screenSize.height) / 8));
+  }, [screenSize]);
+
+  useEffect(() => {
+    setFontSize(Math.floor(boxSize / 2));
+  }, [boxSize]);
+
   return (
-    <>
-      <Board />
-    </>
+    <div className='flex flex-col w-full h-full justify-center align-center'>
+      <div className="flex flex-row w-full h-full justify-center align-center">
+        <div className="flex flex-col justify-center align-center">
+          <Board />
+        </div>
+      </div>
+    </div>
   )
 }
 

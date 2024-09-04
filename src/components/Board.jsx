@@ -17,7 +17,7 @@ function Board() {
       temp.push(<Square key={String(row) + String(col)} row={row} col={col} />);
     }
     matrix.push(
-      <div key={row} className='flex flex-row p-0 gap-0'>{temp}</div>
+      <div key={row} className='flex flex-row justify-center'>{temp}</div>
     );
   }
   return matrix;
