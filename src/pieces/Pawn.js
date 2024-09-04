@@ -52,8 +52,22 @@ class Pawn {
         const diff = (this.color === 'B') ? 1 : -1;
         let ret = [];
         if (this.row + diff >= 0 && this.row + diff < 8) {
-            if (this.col - 1 >= 0) ret.push([this.row + diff, this.col - 1]);
-            if (this.col + 1 < 8) ret.push([this.row + diff, this.col + 1]);
+            if (this.col - 1 >= 0) {
+                if (board[this.row+diff][this.col-1]) {
+                    if (board[this.row+diff][this.col-1].color !== this.color) 
+                        ret.push([this.row + diff, this.col - 1]);
+                } else {
+                    ret.push([this.row + diff, this.col - 1]);
+                }
+            }
+            if (this.col + 1 < 8) {
+                if (board[this.row+diff][this.col-1]) {
+                    if (board[this.row+diff][this.col-1].color !== this.color) 
+                        ret.push([this.row + diff, this.col + 1]);
+                } else {
+                    ret.push([this.row + diff, this.col + 1]);
+                }
+            }
         }
         return ret;
     }
