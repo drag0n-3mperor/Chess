@@ -3,12 +3,12 @@ import checkMoveValidity from "../hooks/checkMoveValidity";
 
 class Rook {
     color;
-    firstMove;
+    moves;
     row; col;
     symbol;
     constructor(color, row, col) {
         this.color = color;
-        this.firstMove = true;
+        this.moves = 0;
         this.row = row; this.col = col;
         this.symbol = 'R';
     }

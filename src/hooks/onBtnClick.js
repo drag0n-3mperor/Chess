@@ -14,12 +14,32 @@ function onBtnClick(
         && highlight.every((value, index) => value === arr[index])
     )) {
         const prevId = selectedPiece.id;
+        const selectedRow = parseInt(prevId[0]);
+        const selectedCol = parseInt(prevId[1]);
         let temp = [...board];
-        temp[row][col] = temp[parseInt(prevId[0])][parseInt(prevId[1])];
-        temp[row][col].row = row;
-        temp[row][col].col = col;
+        temp[row][col] = temp[selectedRow][selectedCol];
+        
+        if (
+            selectedPiece !== null
+            && board[selectedRow][selectedCol].symbol === 'K'
+            && selectedRow === row
+            && Math.abs(selectedCol - col) === 2
+            ) {
+                if (col === selectedCol + 2) {
+                    temp[row][col - 1] = temp[row][col + 1];
+                    temp[row][col + 1] = null;
+                }
+                if (col === selectedCol - 2) {
+                    temp[row][col + 1] = temp[row][col - 2];
+                    temp[row][col - 2] = null;
+                }
+            } else {
+                temp[row][col].row = row;
+                temp[row][col].col = col;
+            }
+            
+        temp[selectedRow][selectedCol] = null;
         temp[row][col].moves++;
-        temp[parseInt(prevId[0])][parseInt(prevId[1])] = null;
         setTurn((turn === 'W') ? 'B' : 'W');
         setBoard(temp);
         setSelectedPiece(null);

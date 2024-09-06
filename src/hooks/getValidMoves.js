@@ -6,7 +6,6 @@ function getValidMoves(board, color) {
                 const arr = board[i][j].getMoves(board);
                 for (let k = 0; k < arr.length; k++) {
                     const e = arr[k];
-                    if (board[e[0]][e[1]]) console.log(board[e[0]][e[1]]);
                     if (board[e[0]][e[1]] && board[e[0]][e[1]].symbol === 'K') {
                         return false;
                     }

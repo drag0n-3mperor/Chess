@@ -29,7 +29,6 @@ function App() {
         height: window.innerHeight
       });
     }
-    console.log(window.innerHeight.toString(), window.innerHeight.toString());
     window.addEventListener('resize', handleScreenResize);
   }, []);
 

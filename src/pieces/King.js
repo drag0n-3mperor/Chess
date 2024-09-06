@@ -32,6 +32,24 @@ class King {
         })
       }
     })
+
+    if (this.moves === 0) {
+      if (board[this.row][this.col + 1] === null
+        && board[this.row][this.col + 2] === null
+        && board[this.row][this.col + 3]
+        && board[this.row][this.col + 3].symbol === 'R'
+        && board[this.row][this.col + 3].moves === 0) {
+          ret.push([this.row, this.col + 2]);
+      }
+      if (board[this.row][this.col - 1] === null
+        && board[this.row][this.col - 2] === null
+        && board[this.row][this.col - 3] === null
+        && board[this.row][this.col - 4] 
+        && board[this.row][this.col - 4].symbol === 'R' 
+        && board[this.row][this.col - 4].moves === 0) {
+          ret.push([this.row, this.col - 2]);
+      }
+    }
     return ret;
   }
 
