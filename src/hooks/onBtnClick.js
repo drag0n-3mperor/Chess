@@ -9,7 +9,10 @@ function onBtnClick(
         highlight, setHighlight, board, 
         turn, setTurn, setBoard
     ) {
-    const arr = [parseInt(e.target.id[0]), parseInt(e.target.id[1])];
+    console.log(e.target.id)
+    const arr = (!e.target.id) ?
+        [parseInt(e.target.parentNode.id[0]), parseInt(e.target.parentNode.id[1])]
+        : [parseInt(e.target.id[0]), parseInt(e.target.id[1])];
     const row = arr[0];
     const col = arr[1];
     const elem = document.getElementById(String(row) + String(col));
