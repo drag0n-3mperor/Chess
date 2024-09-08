@@ -25,7 +25,7 @@ function Square({ row, col }) {
             >
                 {
                     piece ?
-                    <img src={`src/images/${pieceImg}`} height='100%' 
+                    <img src={`images/${pieceImg}`} height='100%' 
                     width='100%' />
                     : ''
                 }
