@@ -35,18 +35,22 @@ function onBtnClick(
             if (col === selectedCol + 2) {
                 temp[row][col - 1] = temp[row][col + 1];
                 temp[row][col + 1] = null;
-                temp[row][col].row = row;
                 temp[row][col].moves++;
+                temp[row][col].row = row;
                 temp[row][col].col = col;
-                console.log(temp[row][col])
+                temp[row][col - 1].moves++;
+                temp[row][col - 1].row = row;
+                temp[row][col - 1].col = col - 1;
             }
             if (col === selectedCol - 2) {
                 temp[row][col + 1] = temp[row][col - 2];
                 temp[row][col - 2] = null;
-                temp[row][col].row = row;
                 temp[row][col].moves++;
+                temp[row][col].row = row;
                 temp[row][col].col = col;
-                console.log(temp[row][col])
+                temp[row][col + 1].moves++;
+                temp[row][col + 1].row = row;
+                temp[row][col + 1].col = col + 1;
             }
         } else if (
             selectedPiece !== null
