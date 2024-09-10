@@ -20,6 +20,7 @@ function App() {
     setHighlightColor(board, highlight);
     checkForMate(board, turn);
     checkForCheckMate(board, turn);
+    console.log(board)
   }, [highlight]);
 
   useEffect(() => {
@@ -39,6 +40,7 @@ function App() {
   useEffect(() => {
     setFontSize(Math.floor(boxSize / 2));
   }, [boxSize]);
+
 
   return (
     <div className='flex flex-col w-full h-full justify-center align-center'>

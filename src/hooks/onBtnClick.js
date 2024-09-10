@@ -9,7 +9,6 @@ function onBtnClick(
         highlight, setHighlight, board, 
         turn, setTurn, setBoard
     ) {
-    console.log(e.target.id)
     const arr = (!e.target.id) ?
         [parseInt(e.target.parentNode.id[0]), parseInt(e.target.parentNode.id[1])]
         : [parseInt(e.target.id[0]), parseInt(e.target.id[1])];
@@ -36,10 +35,18 @@ function onBtnClick(
             if (col === selectedCol + 2) {
                 temp[row][col - 1] = temp[row][col + 1];
                 temp[row][col + 1] = null;
+                temp[row][col].row = row;
+                temp[row][col].moves++;
+                temp[row][col].col = col;
+                console.log(temp[row][col])
             }
             if (col === selectedCol - 2) {
                 temp[row][col + 1] = temp[row][col - 2];
                 temp[row][col - 2] = null;
+                temp[row][col].row = row;
+                temp[row][col].moves++;
+                temp[row][col].col = col;
+                console.log(temp[row][col])
             }
         } else if (
             selectedPiece !== null
